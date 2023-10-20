@@ -1,0 +1,25 @@
+{
+  "name": "sys-prestamo-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "dayjs": "^1.11.10",
+    "jwt-decode": "^3.1.2",
+    "pinia": "^2.1.7",
+    "sweetalert2": "^11.7.32",
+    "vue": "^3.3.4",
+    "vue-loader": "^15.11.1",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.4.5"
+  }
+}
