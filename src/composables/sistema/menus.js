@@ -3,14 +3,14 @@ import jwt_decode from 'jwt-decode';
 import { prestamoApi } from "../../api";
 import { getConfigHeader, getdataParamsPagination, getConfigHeaderPost } from "../../helpers";
 
-export const useRole = () => {
+export const useMenu = () => {
     const errors = ref([]);
     const respuesta = ref([]);
     const config = getConfigHeader();
     const configPost = getConfigHeaderPost();
-    const role = ref({});
-    const roles = ref([]);
-    const tipoAccesos = ref([]);
+    const menu = ref({});
+    const menus = ref([]);
+    const padres = ref([]);
 
     const dato = ref({
         page: 1,
@@ -22,7 +22,9 @@ export const useRole = () => {
         id:null,
         nombre:'',
         slug:'',
-        tipo_acceso_id:'',
+        icono:'',
+        padre_id:'',
+        orden:0,
         es_activo:1,
         estado_crud:'',
         errors:[]
@@ -32,18 +34,21 @@ export const useRole = () => {
         form.value.id = null;
         form.value.nombre = "";
         form.value.slug = "";
-        form.value.tipo_acceso_id = "";
+        form.value.icono = "";
+        form.value.padre_id ="";
+        form.value.orden = 0;
         form.value.es_activo=1;
         form.value.estado_crud ="";
         form.value.errors = [];
         errors.value = [];
     }
 
+
     const offest = ref(2);
 
-    const obtenerRoles = async() => {
+    const obtenerMenus = async() => {
         let dataParam = getdataParamsPagination(dato.value);
-        let respond = await prestamoApi.get('/api/roles'+dataParam,config);
+        let respond = await prestamoApi.get('/api/menus'+dataParam,config);
 
         if(respond.status == 404)
         {
@@ -52,13 +57,13 @@ export const useRole = () => {
 
         if(respond.status == 200)
         {
-            roles.value = jwt_decode(respond.data).roles;
+            menus.value = jwt_decode(respond.data).menus;
         }
     }
 
     const listar = async(page=1) => {
         dato.value.page = page
-        await obtenerRoles();
+        await obtenerMenus();
     }
 
     const buscar = async() => {
@@ -66,21 +71,21 @@ export const useRole = () => {
     }
 
     const isActived = () => {
-        return roles.value.current_page;
+        return menus.value.current_page;
     }
 
     const pagesNumber = () => {
-        if(!roles.value.to){
+        if(!menus.value.to){
             return []
         }
 
-        let from = roles.value.current_page - offest.value;
+        let from = menus.value.current_page - offest.value;
 
         if(from < 1){ from = 1; }
 
         let to = from + ( offest.value*2 );
 
-        if( to >= roles.value.last_page){ to = roles.value.last_page; }
+        if( to >= menus.value.last_page){ to = menus.value.last_page; }
 
         let pagesArray = [];
         while(from <= to) {
@@ -99,8 +104,8 @@ export const useRole = () => {
         listar(pagina)
     }
 
-    const obtenerListaTipoAccesos = async () => {
-        let respond = await prestamoApi.get('/api/tipo-accesos/list')
+    const obtenerListaPadres = async () => {
+        let respond = await prestamoApi.get('/api/menus/parents')
 
         if(respond.status == 404)
         {
@@ -109,15 +114,16 @@ export const useRole = () => {
 
         if(respond.status == 200)
         {
-            tipoAccesos.value = jwt_decode(respond.data).tipo_accesos
+            padres.value = jwt_decode(respond.data).padres
         }
 
     }
-    const agregarRole = async(data) => {
+
+    const agregarMenu = async(data) => {
         errors.value = [];
         respuesta.value = []
         try {
-            let respond = await prestamoApi.post('/api/roles',data,configPost);
+            let respond = await prestamoApi.post('/api/menus',data,configPost);
 
             respond = jwt_decode(respond.data)
             console.log(respond)
@@ -135,8 +141,8 @@ export const useRole = () => {
         }
     }
 
-    const obtenerRole = async(id) => {
-        let respond = await prestamoApi.get('/api/roles/'+id,config);
+    const obtenerMenu = async(id) => {
+        let respond = await prestamoApi.get('/api/menus/'+id,config);
 
         if(respond.status == 404)
         {
@@ -145,14 +151,14 @@ export const useRole = () => {
 
         if(respond.status == 200)
         {
-            role.value = jwt_decode(respond.data).role
+            menu.value = jwt_decode(respond.data).menu
         }
     }
 
-    const actualizarRole= async(data) => {
+    const actualizarMenu = async(data) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/roles/'+data.id,data,configPost)
+            let responded = await prestamoApi.put('api/menus/'+data.id,data,configPost)
             responded = jwt_decode(responded.data)
             errors.value =''
             if(responded.ok==1){
@@ -167,10 +173,10 @@ export const useRole = () => {
         }
     }
 
-    const eliminarRole = async(id) => {
+    const eliminarMenu = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.post('api/roles-eliminar',{id:id},config)
+            let responded = await prestamoApi.post('api/menus-eliminar',{id:id},config)
             errors.value =''
             if(responded.data.ok==1){
                 respuesta.value=responded.data
@@ -184,10 +190,10 @@ export const useRole = () => {
         }
     }
 
-    const inhabilitarRole = async(id) => {
+    const inhabilitarMenu = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/roles/'+id+'/disable',null,configPost)
+            let responded = await prestamoApi.put('api/menus/'+id+'/disable',null,configPost)
             errors.value =''
             responded = jwt_decode(responded.data)
             if(responded.ok==1){
@@ -202,10 +208,10 @@ export const useRole = () => {
         }
     }
 
-    const habilitarRole = async(id) => {
+    const habilitarMenu = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/roles/'+id+'/enable',null,configPost)
+            let responded = await prestamoApi.put('api/menus/'+id+'/enable',null,configPost)
             errors.value =''
             responded = jwt_decode(responded.data)
             if(responded.ok==1){
@@ -219,13 +225,12 @@ export const useRole = () => {
             }
         }
     }
-
 
     return {
-        errors, respuesta, role, roles, dato, form, tipoAccesos,
-        listar, obtenerRoles, buscar, isActived, pagesNumber,
+        errors, respuesta, menu, menus, dato, form, padres,
+        listar, obtenerMenus, buscar, isActived, pagesNumber,
         cambiarPagina, cambiarPaginacion, limpiar,
-        agregarRole, obtenerRole, actualizarRole, eliminarRole,
-        inhabilitarRole, habilitarRole, obtenerListaTipoAccesos
+        agregarMenu, obtenerMenu, actualizarMenu , eliminarMenu,
+        inhabilitarMenu, habilitarMenu, obtenerListaPadres
     }
 }

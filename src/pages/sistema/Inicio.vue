@@ -6,6 +6,7 @@ import { useDatosSession } from '../../composables/session';
 import UsuarioView from './usuario/Inicio.vue';
 import TipoAccesoView from './tipo-acceso/Inicio.vue';
 import RoleView from './role/Inicio.vue';
+import MenuView from './menu/Inicio.vue';
 
 const { usuario, puede } = useDatosSession();
 
@@ -19,7 +20,7 @@ const titleHeader = ref({
 
 onMounted(() => {
     defineTitle(titleHeader.value.vista);
-    cambiarVista('Roles','fas fa-tags');
+    cambiarVista('Menús','fas fa-bars');
 })
 
 const cambiarVista =(nuevaVista, icono) => {
@@ -78,6 +79,7 @@ const cambiarVista =(nuevaVista, icono) => {
                             <UsuarioView v-if="titleHeader.vista=='Usuarios'"></UsuarioView>
                             <TipoAccesoView v-else-if="titleHeader.vista=='Tipo Accesos'"></TipoAccesoView>
                             <RoleView v-else-if="titleHeader.vista == 'Roles'"></RoleView>
+                            <MenuView v-else-if="titleHeader.vista == 'Menús'"></MenuView>
                         </div>
                     </div>
                 </div>
