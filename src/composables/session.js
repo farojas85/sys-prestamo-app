@@ -6,7 +6,7 @@ export const useDatosSession = () => {
     const user_id = localStorage.getItem('token-api') ?
         JSON.parse( JSON.stringify(jwt_decode(localStorage.getItem('token-api')||""))).user : null;
 
-    const { usuario, menus} = storeToRefs(useUserStore());
+    const { usuario, menus, permisos} = storeToRefs(useUserStore());
     const { cargarDatosSession, puede } = useUserStore();
 
     cargarDatosSession(user_id);

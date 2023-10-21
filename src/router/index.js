@@ -6,7 +6,7 @@ import DefaultLayout from '../layouts/DefaultLayout.vue';
 //PAGES
 import Login from '../pages/auth/Login.vue';
 import Dashboard from '../pages/Dashboard.vue';
-// import Sistema from '../Pages/Sistema/Inicio.vue';
+import Sistema from '../pages/sistema/Inicio.vue';
 // import Configuraciones from '../Pages/Configuraciones/Inicio.vue';
 // import Profile from '../Pages/Profile/Inicio.vue'
 // import Almacen from '../Pages/Almacen/Inicio.vue';
@@ -22,10 +22,10 @@ const routes = [
         path: '/dashboard', name:'Dashboard', component: Dashboard,
         meta: {layout: DefaultLayout, icono:'fas fa-tachometer-alt fa-fw'}
     },
-    // {
-    //     path: '/sistema', name:'Sistema', component: Sistema,
-    //     meta: { layout: DefaultLayout, icono:'fab fa-windows fa-fw fa-fw'}
-    // },
+    {
+        path: '/sistema', name:'Sistema', component: Sistema,
+        meta: { layout: DefaultLayout, icono:'fab fa-windows fa-fw fa-fw'}
+    },
     // {
     //     path: '/configuraciones', name:'Configuraciones', component: Configuraciones ,
     //     meta:{ layout: DefaultLayout, icono: 'fas fa-cogs fa-fw'}

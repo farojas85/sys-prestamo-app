@@ -20,7 +20,7 @@ export const useUserStore = defineStore({
             this.usuario.foto = import.meta.env.VITE_APP_API_URL+this.usuario.foto;
             // this.roles = this.usuario.roles.map(role => role.slug) ?? [];
             this.menus = this.usuario.menus ?? [];
-            // this.permisos = this.usuario.permisos ?? [];
+            this.permisos = this.usuario.permisos ?? [];
         },
         puede(slug) {
             if(this.permisos)
