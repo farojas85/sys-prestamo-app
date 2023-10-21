@@ -1,4 +1,5 @@
 <script setup>
+import { toRefs } from 'vue';
 import { useRoute } from 'vue-router';
 
 const props = defineProps({
@@ -8,7 +9,7 @@ const props = defineProps({
     titleHeader: Object
 })
 
-const { titleHeader } = props
+const { titleHeader } = toRefs(props)
 const route = useRoute();
 const icono = route.meta.icono;
 </script>

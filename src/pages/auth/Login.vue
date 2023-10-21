@@ -1,4 +1,13 @@
-<script setup></script>
+<script setup>
+import { useAutenticacion } from '../../composables/autenticacion';
+
+const { errors, usuario, loginUsuario } = useAutenticacion();
+
+const autenticar = async() => {
+    await loginUsuario()
+}
+
+</script>
 <template>
     <div class="login-logo">
         <a href="/"><b>Prestamos</b>SYS</a>
@@ -7,21 +16,35 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Iniciar Sesi&oacute;n</p>
 
-            <form action="" method="post">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nombre de Usuario" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-user"></span>
+            <form @submit.prevent="autenticar">
+                <div class="form-group row">
+                    <div class="col-md-12 mb-3">
+                        <div class="input-group" >
+                            <input type="text" class="form-control" :class="{ 'is-invalid': errors.name}" placeholder="Nombre de Usuario" 
+                                v-model="usuario.name"/>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
                         </div>
+                        <small class="text-danger" v-for="error in errors.name"
+                            :key="error">{{ error }}</small>
                     </div>
                 </div>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                <div class="form-group row">
+                    <div class="col-md-12 mb-3">
+                        <div class="input-group">
+                            <input type="password" class="form-control" :class="{ 'is-invalid': errors.password}"  placeholder="Contraseña"
+                                v-model="usuario.password" />
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
                         </div>
+                        <small class="text-danger" v-for="error in errors.password"
+                            :key="error">{{ error }}</small>
                     </div>
                 </div>
                 <div class="row">

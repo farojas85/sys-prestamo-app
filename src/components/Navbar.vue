@@ -1,6 +1,16 @@
 <script setup>
+import { ref, toRefs } from 'vue';
+
 import NavbarUser from './NavbarUser.vue';
 import NavbarSearch from './NavbarSearch.vue';
+
+const props = defineProps({
+    usuario: Object
+});
+
+const { usuario } = toRefs(props);
+
+
 </script>
 <template>
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -110,7 +120,7 @@ import NavbarSearch from './NavbarSearch.vue';
                     <i class="fas fa-expand-arrows-alt"></i>
                 </a>
             </li>
-            <NavbarUser></NavbarUser>
+            <NavbarUser :usuario="usuario"></NavbarUser>
             <li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#"
                     role="button">

@@ -1,8 +1,43 @@
-<script setup></script>
+<script setup>
+import { toRefs } from 'vue';
+import { useAutenticacion } from '../composables/autenticacion';
+import { useHelper } from '../helpers';
+
+const { logoutUsuario } = useAutenticacion();
+const { Swal } = useHelper();
+
+const props = defineProps({
+    usuario: Object
+});
+
+const {usuario} = toRefs(props);
+
+const logout = async() => {
+    await logoutUsuario(usuario.value.id)
+}
+
+const cerrarSesion = async () => {
+    Swal.fire({
+        title: '¿Está seguro de Cerrar Sesión?',
+        text: 'Préstamos APP',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            logout()
+        }
+    })
+}
+
+</script>
 <template>
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-            <img src="foto.png"  class="img-circle img-sm mr-1"/>Admin Master
+            <img src="foto.png"  class="img-circle img-sm mr-1"/>{{ usuario?.name }}
         </a>
         <div class="dropdown-menu dropdown-menu-right">
             <!-- <span class="dropdown-item dropdown-header">15 Notifications</span> -->

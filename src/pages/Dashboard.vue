@@ -1,12 +1,7 @@
 <script setup>
     import ContentHeader from '../components/ContentHeader.vue';
-    import {
-        ref,
-        onMounted
-    } from 'vue';
-    import {
-        defineTitle
-    } from '../helpers';
+    import { ref, onMounted } from 'vue';
+    import { defineTitle } from '../helpers';
 
     const titleHeader = ref({
         titulo: "Dashboard",
