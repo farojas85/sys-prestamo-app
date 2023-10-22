@@ -7,7 +7,7 @@ import DefaultLayout from '../layouts/DefaultLayout.vue';
 import Login from '../pages/auth/Login.vue';
 import Dashboard from '../pages/Dashboard.vue';
 import Sistema from '../pages/sistema/Inicio.vue';
-// import Configuraciones from '../Pages/Configuraciones/Inicio.vue';
+import Configuracion from '../pages/configuracion/Inicio.vue';
 // import Profile from '../Pages/Profile/Inicio.vue'
 // import Almacen from '../Pages/Almacen/Inicio.vue';
 // import Cotizaciones from '../Pages/Cotizacion/Inicio.vue';
@@ -26,10 +26,10 @@ const routes = [
         path: '/sistema', name:'Sistema', component: Sistema,
         meta: { layout: DefaultLayout, icono:'fab fa-windows fa-fw fa-fw'}
     },
-    // {
-    //     path: '/configuraciones', name:'Configuraciones', component: Configuraciones ,
-    //     meta:{ layout: DefaultLayout, icono: 'fas fa-cogs fa-fw'}
-    // },
+    {
+        path: '/configuracion', name:'Configuración', component: Configuracion,
+        meta:{ layout: DefaultLayout, icono: 'fas fa-cogs fa-fw'}
+    },
     // {
     //     path: '/perfil', name:'Perfil', component: Profile ,
     //     meta:{layout: DefaultLayout}
