@@ -7,6 +7,7 @@ import UsuarioView from './usuario/Inicio.vue';
 import TipoAccesoView from './tipo-acceso/Inicio.vue';
 import RoleView from './role/Inicio.vue';
 import MenuView from './menu/Inicio.vue';
+import PermisoView from './permiso/Inicio.vue';
 
 const { usuario, puede } = useDatosSession();
 
@@ -20,7 +21,7 @@ const titleHeader = ref({
 
 onMounted(() => {
     defineTitle(titleHeader.value.vista);
-    cambiarVista('Menús','fas fa-bars');
+    cambiarVista('Permisos','fas fa-shield-alt');
 })
 
 const cambiarVista =(nuevaVista, icono) => {
@@ -80,6 +81,7 @@ const cambiarVista =(nuevaVista, icono) => {
                             <TipoAccesoView v-else-if="titleHeader.vista=='Tipo Accesos'"></TipoAccesoView>
                             <RoleView v-else-if="titleHeader.vista == 'Roles'"></RoleView>
                             <MenuView v-else-if="titleHeader.vista == 'Menús'"></MenuView>
+                            <PermisoView v-else-if="titleHeader.vista == 'Permisos'"></PermisoView>
                         </div>
                     </div>
                 </div>
