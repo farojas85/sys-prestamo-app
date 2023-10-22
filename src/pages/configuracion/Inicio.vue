@@ -4,6 +4,7 @@ import { defineTitle } from '../../helpers';
 import ContentHeader from '../../components/ContentHeader.vue';
 import { useDatosSession } from '../../composables/session';
 import FrecuenciaPagoView from './frecuencia-pago/Inicio.vue';
+import AplicacionInteresView from './aplicacion-interes/Inicio.vue';
 
 const { usuario, puede } = useDatosSession();
 
@@ -17,7 +18,7 @@ const titleHeader = ref({
 
 onMounted(() => {
     defineTitle(titleHeader.value.vista);
-    //cambiarVista('Permisos','fas fa-shield-alt');
+    cambiarVista('Aplicación Intereses','fas fa-i');
 })
 
 const cambiarVista =(nuevaVista, icono) => {
@@ -41,12 +42,12 @@ const cambiarVista =(nuevaVista, icono) => {
                                 v-if="puede('frecuencia-pagos.inicio')" >
                                 <i class="far fa-calendar-days"></i> Frecuencia Pagos
                             </button>
-                            <!-- <button class="btn btn-app bg-primary"
-                                @click.prevent="cambiarVista('Tipo Accesos','fas fa-low-vision')"
-                                v-if="puede('tipo-accesos.inicio')">
-                                <i class="fas fa-low-vision"></i> Tipo Acceso
-                            </button>
                             <button class="btn btn-app bg-primary"
+                                @click.prevent="cambiarVista('Aplicación Intereses','fas fa-i')"
+                                v-if="puede('tipo-accesos.inicio')">
+                                <i class="fas fa-i"></i> Aplicación Intereses
+                            </button>
+                            <!--<button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Roles','fas fa-tags')"
                                 v-if="puede('roles.inicio')" >
                                 <i class="fas fa-tags"></i> Roles
@@ -74,8 +75,8 @@ const cambiarVista =(nuevaVista, icono) => {
                         </div>
                         <div class="card-body">
                             <FrecuenciaPagoView v-if="titleHeader.vista=='Frecuencia Pagos'"></FrecuenciaPagoView>
-                            <!-- <TipoAccesoView v-else-if="titleHeader.vista=='Tipo Accesos'"></TipoAccesoView>
-                            <RoleView v-else-if="titleHeader.vista == 'Roles'"></RoleView>
+                            <AplicacionInteresView v-else-if="titleHeader.vista=='Aplicación Intereses'"></AplicacionInteresView>
+                            <!-- <RoleView v-else-if="titleHeader.vista == 'Roles'"></RoleView>
                             <MenuView v-else-if="titleHeader.vista == 'Menús'"></MenuView>
                             <PermisoView v-else-if="titleHeader.vista == 'Permisos'"></PermisoView> -->
                         </div>

@@ -3,13 +3,13 @@ import jwt_decode from 'jwt-decode';
 import { prestamoApi } from "../../api";
 import { getConfigHeader, getdataParamsPagination, getConfigHeaderPost } from "../../helpers";
 
-export const useFrecuenciaPago = () => {
+export const useAplicacionInteres = () => {
     const errors = ref([]);
     const respuesta = ref([]);
     const config = getConfigHeader();
     const configPost = getConfigHeaderPost();
-    const frecuenciaPago = ref({});
-    const frecuenciaPagos = ref([]);
+    const aplicacionInteres = ref({});
+    const aplicacionIntereses = ref([]);
 
     const dato = ref({
         page: 1,
@@ -29,7 +29,6 @@ export const useFrecuenciaPago = () => {
     const limpiar = () => {
         form.value.id = null;
         form.value.nombre = "";
-        form.value.dias = 1;
         form.value.es_activo=1;
         form.value.estado_crud ="";
         form.value.errors = [];
@@ -38,9 +37,9 @@ export const useFrecuenciaPago = () => {
 
     const offest = ref(2);
 
-    const obtenerFrecuenciaPagos = async() => {
+    const obtenerAplicacionIntereses = async() => {
         let dataParam = getdataParamsPagination(dato.value);
-        let respond = await prestamoApi.get('/api/frecuencia-pagos'+dataParam,config);
+        let respond = await prestamoApi.get('/api/aplicacion-intereses'+dataParam,config);
 
         if(respond.status == 404)
         {
@@ -49,13 +48,13 @@ export const useFrecuenciaPago = () => {
 
         if(respond.status == 200)
         {
-            frecuenciaPagos.value = jwt_decode(respond.data).frecuencia_pagos;
+            aplicacionIntereses.value = jwt_decode(respond.data).aplicacion_intereses;
         }
     }
 
     const listar = async(page=1) => {
         dato.value.page = page
-        await obtenerFrecuenciaPagos();
+        await obtenerAplicacionIntereses();
     }
 
     const buscar = async() => {
@@ -63,21 +62,21 @@ export const useFrecuenciaPago = () => {
     }
 
     const isActived = () => {
-        return frecuenciaPagos.value.current_page;
+        return aplicacionIntereses.value.current_page;
     }
 
     const pagesNumber = () => {
-        if(!frecuenciaPagos.value.to){
+        if(!aplicacionIntereses.value.to){
             return []
         }
 
-        let from = frecuenciaPagos.value.current_page - offest.value;
+        let from = aplicacionIntereses.value.current_page - offest.value;
 
         if(from < 1){ from = 1; }
 
         let to = from + ( offest.value*2 );
 
-        if( to >= frecuenciaPagos.value.last_page){ to = frecuenciaPagos.value.last_page; }
+        if( to >= aplicacionIntereses.value.last_page){ to = aplicacionIntereses.value.last_page; }
 
         let pagesArray = [];
         while(from <= to) {
@@ -96,11 +95,11 @@ export const useFrecuenciaPago = () => {
         listar(pagina)
     }
 
-    const agregarFrecuenciaPago = async(data) => {
+    const agregarAplicacionIntereses = async(data) => {
         errors.value = [];
         respuesta.value = []
         try {
-            let respond = await prestamoApi.post('/api/frecuencia-pagos',data,configPost);
+            let respond = await prestamoApi.post('/api/aplicacion-intereses',data,configPost);
 
             respond = jwt_decode(respond.data)
             console.log(respond)
@@ -118,8 +117,8 @@ export const useFrecuenciaPago = () => {
         }
     }
 
-    const obtenerFrecuenciaPago = async(id) => {
-        let respond = await prestamoApi.get('/api/frecuencia-pagos/'+id,config);
+    const obtenerAplicacionInteres = async(id) => {
+        let respond = await prestamoApi.get('/api/aplicacion-intereses/'+id,config);
 
         if(respond.status == 404)
         {
@@ -128,14 +127,14 @@ export const useFrecuenciaPago = () => {
 
         if(respond.status == 200)
         {
-            frecuenciaPago.value = jwt_decode(respond.data).frecuencia_pago
+            aplicacionInteres.value = jwt_decode(respond.data).aplicacion_interes
         }
     }
 
-    const actualizarFrecuenciaPago= async(data) => {
+    const actualizarAplicacionInteres= async(data) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/frecuencia-pagos/'+data.id,data,configPost)
+            let responded = await prestamoApi.put('api/aplicacion-intereses/'+data.id,data,configPost)
             responded = jwt_decode(responded.data)
             errors.value =''
             if(responded.ok==1){
@@ -150,10 +149,10 @@ export const useFrecuenciaPago = () => {
         }
     }
 
-    const eliminarFrecuenciaPago = async(id) => {
+    const eliminarAplicacionInteres = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.post('api/frecuencia-pagos-eliminar',{id:id},config)
+            let responded = await prestamoApi.post('api/aplicacion-intereses-eliminar',{id:id},config)
             errors.value =''
             if(responded.data.ok==1){
                 respuesta.value=responded.data
@@ -167,10 +166,10 @@ export const useFrecuenciaPago = () => {
         }
     }
 
-    const inhabilitarFrecuenciaPago = async(id) => {
+    const inhabilitarAplicacionInteres = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/frecuencia-pagos/'+id+'/disable',null,configPost)
+            let responded = await prestamoApi.put('api/aplicacion-intereses/'+id+'/disable',null,configPost)
             errors.value =''
             responded = jwt_decode(responded.data)
             if(responded.ok==1){
@@ -185,10 +184,10 @@ export const useFrecuenciaPago = () => {
         }
     }
 
-    const habilitarFrecuenciaPago = async(id) => {
+    const habilitarAplicacionInteres = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/frecuencia-pagos/'+id+'/enable',null,configPost)
+            let responded = await prestamoApi.put('api/aplicacion-intereses/'+id+'/enable',null,configPost)
             errors.value =''
             responded = jwt_decode(responded.data)
             if(responded.ok==1){
@@ -205,10 +204,10 @@ export const useFrecuenciaPago = () => {
 
 
     return {
-        errors, respuesta, frecuenciaPago, frecuenciaPagos, dato, form,
-        listar, obtenerFrecuenciaPagos, buscar, isActived, pagesNumber,
+        errors, respuesta, aplicacionInteres, aplicacionIntereses, dato, form,
+        listar, obtenerAplicacionIntereses, buscar, isActived, pagesNumber,
         cambiarPagina, cambiarPaginacion, limpiar,
-        agregarFrecuenciaPago, obtenerFrecuenciaPago, actualizarFrecuenciaPago, eliminarFrecuenciaPago,
-        inhabilitarFrecuenciaPago, habilitarFrecuenciaPago
+        agregarAplicacionIntereses, obtenerAplicacionInteres, actualizarAplicacionInteres, eliminarAplicacionInteres,
+        inhabilitarAplicacionInteres, habilitarAplicacionInteres
     }
 }
