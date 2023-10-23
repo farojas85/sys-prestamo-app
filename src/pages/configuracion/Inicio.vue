@@ -6,6 +6,7 @@ import { useDatosSession } from '../../composables/session';
 import FrecuenciaPagoView from './frecuencia-pago/Inicio.vue';
 import AplicacionInteresView from './aplicacion-interes/Inicio.vue';
 import AplicacionMoraView from './aplicacion-mora/Inicio.vue';
+import MonedaView from './moneda/Inicio.vue';
 
 const { usuario, puede } = useDatosSession();
 
@@ -19,7 +20,7 @@ const titleHeader = ref({
 
 onMounted(() => {
     defineTitle(titleHeader.value.vista);
-    cambiarVista('Aplicación Moras','fas fa-list-check');
+    cambiarVista('Monedas','fas fa-coins');
 })
 
 const cambiarVista =(nuevaVista, icono) => {
@@ -53,12 +54,12 @@ const cambiarVista =(nuevaVista, icono) => {
                                 v-if="puede('aplicacion-moras.inicio')" >
                                 <i class="fas fa-list-check"></i> Aplicación Moras
                             </button>
-                            <!--<button class="btn btn-app bg-primary"
-                                @click.prevent="cambiarVista('Menús','fas fa-bars')"
-                                v-if="puede('menus.inicio')" >
-                                <i class="fas fa-bars"></i> Men&uacute;s
-                            </button>
                             <button class="btn btn-app bg-primary"
+                                @click.prevent="cambiarVista('Monedas','fas fa-coins')"
+                                v-if="puede('menus.inicio')" >
+                                <i class="fas fa-coins"></i> Monedas
+                            </button>
+                            <!--<button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Menús - Roles','fas fa-user-minus')"
                                 v-if="puede('menu-role.inicio')" >
                                 <i class="fas fa-user-minus"></i> Men&uacute;s / Roles
@@ -78,8 +79,8 @@ const cambiarVista =(nuevaVista, icono) => {
                             <FrecuenciaPagoView v-if="titleHeader.vista=='Frecuencia Pagos'"></FrecuenciaPagoView>
                             <AplicacionInteresView v-else-if="titleHeader.vista=='Aplicación Intereses'"></AplicacionInteresView>
                             <AplicacionMoraView v-else-if="titleHeader.vista == 'Aplicación Moras'"></AplicacionMoraView>
-                            <!-- <MenuView v-else-if="titleHeader.vista == 'Menús'"></MenuView>
-                            <PermisoView v-else-if="titleHeader.vista == 'Permisos'"></PermisoView> -->
+                            <MonedaView v-else-if="titleHeader.vista == 'Monedas'"></MonedaView>
+                            <!-- <PermisoView v-else-if="titleHeader.vista == 'Permisos'"></PermisoView> -->
                         </div>
                     </div>
                 </div>
