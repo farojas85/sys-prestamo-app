@@ -5,6 +5,7 @@ import ContentHeader from '../../components/ContentHeader.vue';
 import { useDatosSession } from '../../composables/session';
 import FrecuenciaPagoView from './frecuencia-pago/Inicio.vue';
 import AplicacionInteresView from './aplicacion-interes/Inicio.vue';
+import AplicacionMoraView from './aplicacion-mora/Inicio.vue';
 
 const { usuario, puede } = useDatosSession();
 
@@ -18,7 +19,7 @@ const titleHeader = ref({
 
 onMounted(() => {
     defineTitle(titleHeader.value.vista);
-    cambiarVista('Aplicación Intereses','fas fa-i');
+    cambiarVista('Aplicación Moras','fas fa-list-check');
 })
 
 const cambiarVista =(nuevaVista, icono) => {
@@ -44,15 +45,15 @@ const cambiarVista =(nuevaVista, icono) => {
                             </button>
                             <button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Aplicación Intereses','fas fa-i')"
-                                v-if="puede('tipo-accesos.inicio')">
+                                v-if="puede('aplicacion-intereses.inicio')">
                                 <i class="fas fa-i"></i> Aplicación Intereses
                             </button>
-                            <!--<button class="btn btn-app bg-primary"
-                                @click.prevent="cambiarVista('Roles','fas fa-tags')"
-                                v-if="puede('roles.inicio')" >
-                                <i class="fas fa-tags"></i> Roles
-                            </button>
                             <button class="btn btn-app bg-primary"
+                                @click.prevent="cambiarVista('Aplicación Moras','fas fa-list-check')"
+                                v-if="puede('aplicacion-moras.inicio')" >
+                                <i class="fas fa-list-check"></i> Aplicación Moras
+                            </button>
+                            <!--<button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Menús','fas fa-bars')"
                                 v-if="puede('menus.inicio')" >
                                 <i class="fas fa-bars"></i> Men&uacute;s
@@ -76,8 +77,8 @@ const cambiarVista =(nuevaVista, icono) => {
                         <div class="card-body">
                             <FrecuenciaPagoView v-if="titleHeader.vista=='Frecuencia Pagos'"></FrecuenciaPagoView>
                             <AplicacionInteresView v-else-if="titleHeader.vista=='Aplicación Intereses'"></AplicacionInteresView>
-                            <!-- <RoleView v-else-if="titleHeader.vista == 'Roles'"></RoleView>
-                            <MenuView v-else-if="titleHeader.vista == 'Menús'"></MenuView>
+                            <AplicacionMoraView v-else-if="titleHeader.vista == 'Aplicación Moras'"></AplicacionMoraView>
+                            <!-- <MenuView v-else-if="titleHeader.vista == 'Menús'"></MenuView>
                             <PermisoView v-else-if="titleHeader.vista == 'Permisos'"></PermisoView> -->
                         </div>
                     </div>

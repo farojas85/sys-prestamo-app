@@ -3,13 +3,13 @@ import jwt_decode from 'jwt-decode';
 import { prestamoApi } from "../../api";
 import { getConfigHeader, getdataParamsPagination, getConfigHeaderPost } from "../../helpers";
 
-export const useAplicacionInteres = () => {
+export const useAplicacionMora = () => {
     const errors = ref([]);
     const respuesta = ref([]);
     const config = getConfigHeader();
     const configPost = getConfigHeaderPost();
-    const aplicacionInteres = ref({});
-    const aplicacionIntereses = ref([]);
+    const aplicacionMora = ref({});
+    const aplicacionMoras = ref([]);
 
     const dato = ref({
         page: 1,
@@ -36,9 +36,9 @@ export const useAplicacionInteres = () => {
 
     const offest = ref(2);
 
-    const obtenerAplicacionIntereses = async() => {
+    const obtenerAplicacionMoras = async() => {
         let dataParam = getdataParamsPagination(dato.value);
-        let respond = await prestamoApi.get('/api/aplicacion-intereses'+dataParam,config);
+        let respond = await prestamoApi.get('/api/aplicacion-moras'+dataParam,config);
 
         if(respond.status == 404)
         {
@@ -47,13 +47,13 @@ export const useAplicacionInteres = () => {
 
         if(respond.status == 200)
         {
-            aplicacionIntereses.value = jwt_decode(respond.data).aplicacion_intereses;
+            aplicacionMoras.value = jwt_decode(respond.data).aplicacion_moras;
         }
     }
 
     const listar = async(page=1) => {
         dato.value.page = page
-        await obtenerAplicacionIntereses();
+        await obtenerAplicacionMoras();
     }
 
     const buscar = async() => {
@@ -61,21 +61,21 @@ export const useAplicacionInteres = () => {
     }
 
     const isActived = () => {
-        return aplicacionIntereses.value.current_page;
+        return aplicacionMoras.value.current_page;
     }
 
     const pagesNumber = () => {
-        if(!aplicacionIntereses.value.to){
+        if(!aplicacionMoras.value.to){
             return []
         }
 
-        let from = aplicacionIntereses.value.current_page - offest.value;
+        let from = aplicacionMoras.value.current_page - offest.value;
 
         if(from < 1){ from = 1; }
 
         let to = from + ( offest.value*2 );
 
-        if( to >= aplicacionIntereses.value.last_page){ to = aplicacionIntereses.value.last_page; }
+        if( to >= aplicacionMoras.value.last_page){ to = aplicacionMoras.value.last_page; }
 
         let pagesArray = [];
         while(from <= to) {
@@ -94,11 +94,11 @@ export const useAplicacionInteres = () => {
         listar(pagina)
     }
 
-    const agregarAplicacionIntereses = async(data) => {
+    const agregarAplicacionMora = async(data) => {
         errors.value = [];
         respuesta.value = []
         try {
-            let respond = await prestamoApi.post('/api/aplicacion-intereses',data,configPost);
+            let respond = await prestamoApi.post('/api/aplicacion-moras',data,configPost);
 
             respond = jwt_decode(respond.data)
             console.log(respond)
@@ -116,8 +116,8 @@ export const useAplicacionInteres = () => {
         }
     }
 
-    const obtenerAplicacionInteres = async(id) => {
-        let respond = await prestamoApi.get('/api/aplicacion-intereses/'+id,config);
+    const obtenerAplicacionMora = async(id) => {
+        let respond = await prestamoApi.get('/api/aplicacion-moras/'+id,config);
 
         if(respond.status == 404)
         {
@@ -126,14 +126,14 @@ export const useAplicacionInteres = () => {
 
         if(respond.status == 200)
         {
-            aplicacionInteres.value = jwt_decode(respond.data).aplicacion_interes
+            aplicacionMora.value = jwt_decode(respond.data).aplicacion_mora
         }
     }
 
-    const actualizarAplicacionInteres= async(data) => {
+    const actualizarAplicacionMora= async(data) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/aplicacion-intereses/'+data.id,data,configPost)
+            let responded = await prestamoApi.put('api/aplicacion-moras/'+data.id,data,configPost)
             responded = jwt_decode(responded.data)
             errors.value =''
             if(responded.ok==1){
@@ -148,10 +148,10 @@ export const useAplicacionInteres = () => {
         }
     }
 
-    const eliminarAplicacionInteres = async(id) => {
+    const eliminarAplicacionMora = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.post('api/aplicacion-intereses-eliminar',{id:id},config)
+            let responded = await prestamoApi.post('api/aplicacion-moras-eliminar',{id:id},config)
             errors.value =''
             if(responded.data.ok==1){
                 respuesta.value=responded.data
@@ -165,10 +165,10 @@ export const useAplicacionInteres = () => {
         }
     }
 
-    const inhabilitarAplicacionInteres = async(id) => {
+    const inhabilitarAplicacionMora = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/aplicacion-intereses/'+id+'/disable',null,configPost)
+            let responded = await prestamoApi.put('api/aplicacion-moras/'+id+'/disable',null,configPost)
             errors.value =''
             responded = jwt_decode(responded.data)
             if(responded.ok==1){
@@ -183,10 +183,10 @@ export const useAplicacionInteres = () => {
         }
     }
 
-    const habilitarAplicacionInteres = async(id) => {
+    const habilitarAplicacionMora = async(id) => {
         errors.value = ''
         try {
-            let responded = await prestamoApi.put('api/aplicacion-intereses/'+id+'/enable',null,configPost)
+            let responded = await prestamoApi.put('api/aplicacion-moras/'+id+'/enable',null,configPost)
             errors.value =''
             responded = jwt_decode(responded.data)
             if(responded.ok==1){
@@ -203,10 +203,10 @@ export const useAplicacionInteres = () => {
 
 
     return {
-        errors, respuesta, aplicacionInteres, aplicacionIntereses, dato, form,
-        listar, obtenerAplicacionIntereses, buscar, isActived, pagesNumber,
+        errors, respuesta, aplicacionMora, aplicacionMoras, dato, form,
+        listar, obtenerAplicacionMoras, buscar, isActived, pagesNumber,
         cambiarPagina, cambiarPaginacion, limpiar,
-        agregarAplicacionIntereses, obtenerAplicacionInteres, actualizarAplicacionInteres, eliminarAplicacionInteres,
-        inhabilitarAplicacionInteres, habilitarAplicacionInteres
+        agregarAplicacionMora, obtenerAplicacionMora, actualizarAplicacionMora, eliminarAplicacionMora,
+        inhabilitarAplicacionMora, habilitarAplicacionMora
     }
 }

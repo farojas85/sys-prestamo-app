@@ -40,11 +40,11 @@ const cambiarVista =(nuevaVista, icono) => {
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <button class="btn btn-app bg-primary"
+                            <!-- <button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Usuarios','fa fa-users')"
                                 v-if="puede('usuarios.inicio')" >
                                 <i class="fa fa-users"></i> Usuarios
-                            </button>
+                            </button> -->
                             <button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Tipo Accesos','fas fa-low-vision')"
                                 v-if="puede('tipo-accesos.inicio')">
@@ -60,21 +60,21 @@ const cambiarVista =(nuevaVista, icono) => {
                                 v-if="puede('menus.inicio')" >
                                 <i class="fas fa-bars"></i> Men&uacute;s
                             </button>
-                            <button class="btn btn-app bg-primary"
+                            <!-- <button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Menús - Roles','fas fa-user-minus')"
                                 v-if="puede('menu-role.inicio')" >
                                 <i class="fas fa-user-minus"></i> Men&uacute;s / Roles
-                            </button>
+                            </button> -->
                             <button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Permisos','fas fa-shield-alt')"
                                 v-if="puede('permisos.inicio')" >
                                 <i class="fas fa-shield-alt"></i> Permisos
                             </button>
-                            <button class="btn btn-app bg-primary"
+                            <!-- <button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Permisos - Roles','fas fa-user-shield')"
                                 v-if="puede('permiso-role.inicio')">
                                 <i class="fas fa-user-shield"></i> Permisos / Roles
-                            </button>
+                            </button> -->
                         </div>
                         <div class="card-body">
                             <UsuarioView v-if="titleHeader.vista=='Usuarios'"></UsuarioView>
