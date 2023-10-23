@@ -37,7 +37,7 @@ const cerrarSesion = async () => {
 <template>
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-            <img src="foto.png"  class="img-circle img-sm mr-1"/>{{ usuario?.name }}
+            <img src="/foto.png"  class="img-circle img-sm mr-1"/>{{ usuario?.name }}
         </a>
         <div class="dropdown-menu dropdown-menu-right">
             <!-- <span class="dropdown-item dropdown-header">15 Notifications</span> -->
