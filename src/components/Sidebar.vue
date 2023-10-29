@@ -15,7 +15,7 @@ const { usuario, menus } = toRefs(props);
 
 </script>
 <template>
-    <aside class="main-sidebar elevation-4 sidebar-light-success">
+    <aside class="main-sidebar elevation-4 sidebar-dark-info bg-navy">
         <Brandlogo></Brandlogo>
         <div class="sidebar">
             <SidebarUser :usuario="usuario"></SidebarUser>
