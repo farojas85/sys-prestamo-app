@@ -10,7 +10,7 @@ const autenticar = async() => {
 </script>
 <template>
     <div class="login-logo">
-        <a href="/"><b>Prestamos</b>SYS</a>
+        <img src="/img/logos/logo-100.webp">
     </div>
     <div class="card">
         <div class="card-body login-card-body">

@@ -9,10 +9,7 @@ import Dashboard from '../pages/Dashboard.vue';
 import Sistema from '../pages/sistema/Inicio.vue';
 import Configuracion from '../pages/configuracion/Inicio.vue';
 import Empleado from '../pages/empleado/Inicio.vue';
-// import Profile from '../Pages/Profile/Inicio.vue'
-// import Almacen from '../Pages/Almacen/Inicio.vue';
-// import Cotizaciones from '../Pages/Cotizacion/Inicio.vue';
-
+import Prestamo from '../pages/prestamo/Inicio.vue';
 
 const routes = [
     {
@@ -35,10 +32,10 @@ const routes = [
         path: '/empleado', name:'Empleado', component: Empleado,
         meta:{ layout: DefaultLayout, icono: 'fas fa-users-line fa-fw'}
     },
-    // {
-    //     path: '/perfil', name:'Perfil', component: Profile ,
-    //     meta:{layout: DefaultLayout}
-    // },
+    {
+        path: '/prestamo', name:'Perfil', component: Prestamo ,
+        meta:{layout: DefaultLayout}
+    },
     // {
     //     path: '/almacen', name:'Almacén', component: Almacen ,
     //     meta:{ layout: DefaultLayout, icono: 'fa-solid fa-boxes-stacked fa-fw'}

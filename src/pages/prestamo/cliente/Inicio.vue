@@ -1,15 +1,15 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useHelper } from '../../helpers';
-import { useEmpleado } from '../../composables/empleado/empleados';
-import EmpleadoForm from './Form.vue';
+import { useHelper } from '../../../helpers';
+import { useCliente } from '../../../composables/prestamo/clientes';
+import ClienteForm from './Form.vue';
 
 const { Toast, Swal } = useHelper();
 const {
-    form, dato, empleados, errors, respuesta, empleado,
+    form, dato, clientes, errors, respuesta, cliente,
     listar, buscar, isActived, pagesNumber, cambiarPaginacion, cambiarPagina,
     limpiar,
-} = useEmpleado();
+} = useCliente();
 
 
 onMounted(() => {
@@ -20,17 +20,17 @@ const nuevo = () => {
     limpiar();
     form.value.estado_crud = 'nuevo';
     (
-        document.getElementById('modal-empleado-title')
-    ).innerHTML ="Nuevo Empleado";
+        document.getElementById('modal-cliente-title')
+    ).innerHTML ="Nuevo Cliente";
 
-    $('#modal-empleado').modal('show')
+    $('#modal-cliente').modal('show')
 }
 </script>
 <template>
     <div class="card card-primary card-outline">
         <div class="card-header">
             <h6 class="card-title">
-                Listado de Empleados
+                Listado de Clientes
                 <a class="btn btn-danger btn-sm ml-1"
                     @click.prevent="nuevo" >
                     <i class="fa fa-plus"></i>
@@ -61,7 +61,7 @@ const nuevo = () => {
                         <div class="input-group-prepend">
                             <span class="input-group-text">Buscar</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Ingrese Num.documento, nombres, apellidos, usuario, email"
+                        <input type="text" class="form-control" placeholder="Ingrese Num. documento, nombres, apellidos"
                             v-model="dato.buscar" @change="buscar"/>
                     </div>
                 </div>
@@ -73,33 +73,34 @@ const nuevo = () => {
                             <thead class="table-dark">
                                 <tr>
                                     <th class="text-center">#</th>
-                                    <th>Foto</th>
                                     <th class="text-center">Nro. Documento</th>
                                     <th class="text-center">Apellidos y Nombres</th>
                                     <th class="text-center">Tel&eacute;fono</th>
+                                    <th class="text-center">valoración</th>
                                     <th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="empleados.total == 0">
-                                    <td class="text-danger text-center table-danger" colspan="5">
+                                <tr v-if="clientes.total == 0">
+                                    <td class="text-danger text-center table-danger" colspan="7">
                                         -- Datos No Registrados --
                                     </td>
                                 </tr>
-                                <tr v-else v-for="(emple,index) in empleados.data">
-                                    <td class="text-center" v-text="index+empleados.from"></td>
+                                <tr v-else v-for="(cli,index) in clientes.data">
+                                    <td class="text-center" v-text="index+clientes.from"></td>
+                                    <td class="text-center" v-text="cli.numero_documento"></td>
+                                    <td class="text-left" v-text="cli.apellidos_nombres"></td>
+                                    <td class="text-center" v-text="cli.telefono"></td>
                                     <td></td>
-                                    <td class="text-center" v-text="emple.numero_documento"></td>
-                                    <td class="text-left" v-text="emple.apellidos_nombres"></td>
-                                    <td class="text-center" v-text="emple.telefono"></td>
                                     <td>
-                                        <template v-if="emple.es_activo==1">
+                                        <template v-if="cli.es_activo==1">
                                             <button class="btn btn-warning btn-sm mr-1"
-                                                title="Editar Empleado"
-                                                @click.prevent="editar(emple.id)">
+                                                title="Editar Cliente"
+                                                @click.prevent="editar(cli.id)">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </template>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -109,22 +110,22 @@ const nuevo = () => {
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    Mostrando <b>{{empleados.from}}</b> a <b>{{ empleados.to }}</b> de <b>{{ empleados.total}}</b> Registros
+                    Mostrando <b>{{clientes.from}}</b> a <b>{{ clientes.to }}</b> de <b>{{ clientes.total}}</b> Registros
                 </div>
                 <div class="col-md-3 text-right">
                     <nav>
                         <ul class="pagination">
-                            <li v-if="empleados.current_page >= 2" class="page-item">
+                            <li v-if="clientes.current_page >= 2" class="page-item">
                                 <a href="#" aria-label="Previous" class="page-link"
                                     title="Primera Página"
                                     @click.prevent="cambiarPagina(1)">
                                     <span><i class="fas fa-backward-fast"></i></span>
                                 </a>
                             </li>
-                            <li v-if="empleados.current_page > 1" class="page-item">
+                            <li v-if="clientes.current_page > 1" class="page-item">
                                 <a href="#" aria-label="Previous" class="page-link"
                                     title="Página Anterior"
-                                    @click.prevent="cambiarPagina(empleados.current_page - 1)">
+                                    @click.prevent="cambiarPagina(clientes.current_page - 1)">
 
                                     <span><i class="fas fa-angle-left"></i></span>
                                 </a>
@@ -136,16 +137,16 @@ const nuevo = () => {
                                 <a href="#" class="page-link"
                                     @click.prevent="cambiarPagina(page)">{{ page }}</a>
                             </li>
-                            <li v-if="empleados.current_page < empleados.last_page" class="page-item">
+                            <li v-if="clientes.current_page < clientes.last_page" class="page-item">
                                 <a href="#" aria-label="Next" class="page-link"
                                     title="Página Siguiente"
-                                    @click.prevent="cambiarPagina(empleados.current_page + 1)">
+                                    @click.prevent="cambiarPagina(clientes.current_page + 1)">
                                     <span><i class="fas fa-angle-right"></i></span>
                                 </a>
                             </li>
-                                <li v-if="empleados.current_page <= empleados.last_page-1" class="page-item">
+                                <li v-if="clientes.current_page <= clientes.last_page-1" class="page-item">
                                 <a href="#" aria-label="Next" class="page-link"
-                                    @click.prevent="cambiarPagina(empleados.last_page)"
+                                    @click.prevent="cambiarPagina(clientes.last_page)"
                                     title="Última Página">
                                     <span><i class="fas fa-forward-fast"></i></span>
                                 </a>
@@ -156,5 +157,5 @@ const nuevo = () => {
             </div>
         </div>
     </div>
-    <EmpleadoForm :form="form" @onListar="listar"></EmpleadoForm>
+    <ClienteForm :form="form" @onListar="listar"></ClienteForm>
 </template>
