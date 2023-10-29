@@ -36,7 +36,7 @@ const ruta = (String(route.path).toLowerCase()).substring(1);
                         <li class="nav-item" v-for="subm in menu.submenu">
                             <a :href="subm.slug" class="nav-link" :class="{'active': subm.slug === ruta}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v1</p>
+                                <p>{{ subm.nombre }}</p>
                             </a>
                         </li>
                     </ul>

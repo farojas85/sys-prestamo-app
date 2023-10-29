@@ -8,6 +8,7 @@ import Login from '../pages/auth/Login.vue';
 import Dashboard from '../pages/Dashboard.vue';
 import Sistema from '../pages/sistema/Inicio.vue';
 import Configuracion from '../pages/configuracion/Inicio.vue';
+import Empleado from '../pages/empleado/Inicio.vue';
 // import Profile from '../Pages/Profile/Inicio.vue'
 // import Almacen from '../Pages/Almacen/Inicio.vue';
 // import Cotizaciones from '../Pages/Cotizacion/Inicio.vue';
@@ -29,6 +30,10 @@ const routes = [
     {
         path: '/configuracion', name:'Configuración', component: Configuracion,
         meta:{ layout: DefaultLayout, icono: 'fas fa-cogs fa-fw'}
+    },
+    {
+        path: '/empleado', name:'Empleado', component: Empleado,
+        meta:{ layout: DefaultLayout, icono: 'fas fa-users-line fa-fw'}
     },
     // {
     //     path: '/perfil', name:'Perfil', component: Profile ,

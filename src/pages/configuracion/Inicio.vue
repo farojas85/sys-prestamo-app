@@ -56,7 +56,7 @@ const cambiarVista =(nuevaVista, icono) => {
                             </button>
                             <button class="btn btn-app bg-primary"
                                 @click.prevent="cambiarVista('Monedas','fas fa-coins')"
-                                v-if="puede('menus.inicio')" >
+                                v-if="puede('monedas.inicio')" >
                                 <i class="fas fa-coins"></i> Monedas
                             </button>
                             <!--<button class="btn btn-app bg-primary"

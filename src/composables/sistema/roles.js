@@ -136,7 +136,7 @@ export const useRole = () => {
     }
 
     const obtenerRole = async(id) => {
-        let respond = await prestamoApi.get('/api/roles/'+id,config);
+        let respond = await prestamoApi.get('/api/roles/'+id+'/show',config);
 
         if(respond.status == 404)
         {
