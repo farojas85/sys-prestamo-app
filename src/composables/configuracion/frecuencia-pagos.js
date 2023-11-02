@@ -119,7 +119,7 @@ export const useFrecuenciaPago = () => {
     }
 
     const obtenerFrecuenciaPago = async(id) => {
-        let respond = await prestamoApi.get('/api/frecuencia-pagos/'+id,config);
+        let respond = await prestamoApi.get('/api/frecuencia-pagos/'+id+'/show',config);
 
         if(respond.status == 404)
         {

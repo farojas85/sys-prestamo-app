@@ -10,6 +10,7 @@ import Sistema from '../pages/sistema/Inicio.vue';
 import Configuracion from '../pages/configuracion/Inicio.vue';
 import Empleado from '../pages/empleado/Inicio.vue';
 import Prestamo from '../pages/prestamo/Inicio.vue';
+import Configuraciones from '../pages/iniciales/Configuraciones.vue';
 
 const routes = [
     {
@@ -35,6 +36,10 @@ const routes = [
     {
         path: '/prestamo', name:'Perfil', component: Prestamo ,
         meta:{layout: DefaultLayout}
+    },
+    {
+        path: '/configuraciones', name:'Configuraciones', component: Configuraciones ,
+        meta:{layout: DefaultLayout, icono: 'fas fa-gear fa-fw'}
     },
     // {
     //     path: '/almacen', name:'Almacén', component: Almacen ,

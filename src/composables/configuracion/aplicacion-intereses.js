@@ -117,7 +117,7 @@ export const useAplicacionInteres = () => {
     }
 
     const obtenerAplicacionInteres = async(id) => {
-        let respond = await prestamoApi.get('/api/aplicacion-intereses/'+id,config);
+        let respond = await prestamoApi.get('/api/aplicacion-intereses/'+id+'/show',config);
 
         if(respond.status == 404)
         {

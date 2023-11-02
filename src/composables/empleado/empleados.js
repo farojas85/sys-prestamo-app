@@ -174,7 +174,8 @@ export const useEmpleado = () => {
             let respond = await prestamoApi.get('/api/personas/dni/'+data.numero_documento+'/?tipo_documento_id='+data.tipo_documento_id)
             if(respond.status == 200)
             {
-                persona.value = jwt_decode(respond.data).personaDni;
+                //persona.value = jwt_decode(respond.data).personaDni;
+                persona.value = respond.data.personaDni;
             }
         } catch (error) {
             errors.value = [];
@@ -192,7 +193,7 @@ export const useEmpleado = () => {
 
     const agregarEmpleado = async(data) => {
         errors.value = [];
-        respuesta.value = []
+        respuesta.value = [];
         try {
             let respond = await prestamoApi.post('/api/empleados',data,configPost);
 

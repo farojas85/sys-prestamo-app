@@ -117,7 +117,7 @@ export const useAplicacionMora = () => {
     }
 
     const obtenerAplicacionMora = async(id) => {
-        let respond = await prestamoApi.get('/api/aplicacion-moras/'+id,config);
+        let respond = await prestamoApi.get('/api/aplicacion-moras/'+id+'/show',config);
 
         if(respond.status == 404)
         {
