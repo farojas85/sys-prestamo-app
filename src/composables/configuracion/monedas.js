@@ -123,7 +123,7 @@ export const useMoneda = () => {
     }
 
     const obtenerMoneda = async(id) => {
-        let respond = await prestamoApi.get('/api/monedas/'+id,config);
+        let respond = await prestamoApi.get('/api/monedas/'+id+'/show',config);
 
         if(respond.status == 404)
         {
